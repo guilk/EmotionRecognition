@@ -1,7 +1,6 @@
-function [accuracy, true_labels, pred_labels] = linear_video_BU4DFE_classify(tr_features, tr_labels, feat_path, src_samples, inds)
+function [accuracy, true_labels, pred_labels] = linear_video_BU4DFE_PCA_classify(tr_features, tr_labels, feat_path, src_samples, inds, PC, means_norm, stds_norm)
 %LINEAR_VIDEO_BU4DFE_CLASSIFY Summary of this function goes here
 %   Detailed explanation goes here
-
 c = 0.1;
 tr_features = double(sparse(tr_features));
 tr_labels = double(tr_labels);
@@ -22,6 +21,7 @@ for i = 1:numel(samples)
         count = count + 1;
         sample_path = strcat(feat_path,'/',samples{i});
         ts_features = load_features(sample_path, sub_samples(j).name, option);
+        ts_features = get_pca(ts_features, PC, means_norm, stds_norm);
         
         sample_name = sub_samples(j).name;
         splits = strsplit(sample_name, '.');
