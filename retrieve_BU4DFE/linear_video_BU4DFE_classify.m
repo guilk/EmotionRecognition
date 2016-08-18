@@ -27,7 +27,7 @@ for i = 1:numel(samples)
         video_label = get_label(splits(1));
         true_labels = [true_labels;video_label];
         ts_labels = zeros(size(ts_features,1),1);
-        ts_features = bsxfun(@times, bsxfun(@plus, ts_features, -means_norm), 1./stds_norm);
+        
         ts_features = double(sparse(ts_features));
         ts_labels = double(ts_labels);
         

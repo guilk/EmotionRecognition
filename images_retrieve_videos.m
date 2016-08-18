@@ -39,9 +39,7 @@ if ifVideo == 0
         test_inds = inds(indices == i);
         
         [tr_features, tr_labels] = prepare_BU4DFE_training_data(bu4dfe_root, samples, train_inds,model);
-        
-        [ts_features, ts_labels] = prepare_BU4DFE_testing_data(bu4dfe_root, samples, test_inds);
-        
+        [ts_features, ts_labels] = prepare_BU4DFE_testing_data(bu4dfe_root, samples, test_inds);  
         [overall_acc, average_acc, probs] = linear_classify(tr_features, tr_labels, ts_features, ts_labels);
         accuracy(i) = overall_acc(1);
     end
