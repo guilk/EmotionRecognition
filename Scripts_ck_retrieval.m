@@ -45,6 +45,7 @@ accuracy = zeros(1,num_folds);
 true_labels = [];
 pred_labels = [];
 for PCA_mode = 0:1
+    
     for featAug_mode = 0:1
         for i = 1:num_folds
             fprintf('%dth cross validation\n',i);
