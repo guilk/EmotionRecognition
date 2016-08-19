@@ -19,14 +19,27 @@ if prepare_model == 1
     tr_features = tr_features(no_train_ne_inds,:);
     tr_labels = tr_labels(no_train_ne_inds,:);
     
-    csvwrite('tr_features.dat',tr_features);
-    csvwrite('tr_labels.dat',tr_labels);
+    csvwrite('../models/ck_tr_features.dat',tr_features);
+    csvwrite('../models/ck_tr_labels.dat',tr_labels);
     c = 0.1;
     opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
     tr_features = double(sparse(tr_features));
     tr_labels = double(tr_labels);
     model = svmtrain(tr_labels, tr_features, opt);
-    save ck_model.mat model
+    save('../models/ck_model.mat','model');
+    
+    tr_features = get_pca(tr_features, PC, means_norm, stds_norm);
+    csvwrite('../models/pca_ck_tr_features.dat',tr_features);
+    csvwrite('../models/pca_ck_tr_labels.dat',tr_labels);
+    
+    c = 0.1;
+    opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
+    tr_features = double(sparse(tr_features));
+    tr_labels = double(tr_labels);
+    model = svmtrain(tr_labels, tr_features, opt);
+    save('../models/pca_ck_model.mat','model');
+    
+    
 end
 
 
