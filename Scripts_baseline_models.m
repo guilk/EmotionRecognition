@@ -1,7 +1,15 @@
 % Build baselines
 clear
 clc
+
+addpath('./plots');
+addpath('./retrieve_BU4DFE/');
+addpath('../models/libsvm/matlab');
+addpath('./utilities');
+addpath('../pca');
+
 model_root = './models/';
+
 model_names = {'all','bosphorus','ck','bu3dfe'};
 
 bu4dfe_root = '../data/BU_4DFE/';

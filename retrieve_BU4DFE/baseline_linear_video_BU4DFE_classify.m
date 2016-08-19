@@ -26,7 +26,7 @@ for i = 1:numel(samples)
         ts_features = double(sparse(ts_features));
         ts_labels = double(ts_labels);
         
-        [predictions] = svmpredict(ts_labels, ts_features, model);
+        [predictions] = svmpredict(ts_labels, ts_features, model, '-b 1');
         pred_label = mode(predictions);
         pred_labels = [pred_labels;pred_label];
     end

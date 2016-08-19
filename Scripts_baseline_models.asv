@@ -1,4 +1,0 @@
-% Build baselines
-mod
-model_name = {'all','bosphorus','ck','bu3dfe'};
-
