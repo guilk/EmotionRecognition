@@ -2,7 +2,7 @@
 % Scripts for ck+ dataset on BU4DFE dataset
 clear
 clc
-parpool('local',10);
+% parpool('local',10);
 % Add utilities path
 addpath('./plots');
 addpath('./retrieve_BU4DFE/');
@@ -26,7 +26,7 @@ load(pca_file);
 
 % Train/Test splits
 rng default
-num_folds = 10;
+num_folds = 2;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
 % main function
@@ -38,7 +38,7 @@ for PCA_mode = 1
         true_labels = [];
         pred_labels = [];
         accuracy = zeros(1,num_folds);
-        parfor i = 1:num_folds
+        for i = 1:num_folds
             fprintf('pca mode: %d, feature augment mode: %d, %dth cross validation\n',PCA_mode, featAug_mode, i);
             train_inds = inds(indices ~= i);
             test_inds = inds(indices == i);
@@ -65,8 +65,6 @@ for PCA_mode = 1
         save(strcat('./results/',name_dataset,'_',num2str(PCA_mode),'_',num2str(featAug_mode),'_result.mat'), 'true_labels', 'pred_labels', 'accuracy');        
     end
 end
-p = gcp;
-delete(p);
 
 
 
