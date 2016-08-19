@@ -25,14 +25,14 @@ load(pca_file);
 
 % Train/Test splits
 rng default
-num_folds = 2;
+num_folds = 10;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
 % main function
 
-for PCA_mode = 0
+for PCA_mode = 0:1
     [aug_tr_features, aug_tr_labels, model] = load_pretrained_data(name_dataset, PCA_mode);
-    for featAug_mode = 0
+    for featAug_mode = 0:1
         
         true_labels = [];
         pred_labels = [];
