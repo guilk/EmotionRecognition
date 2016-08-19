@@ -26,7 +26,7 @@ load(pca_file);
 
 % Train/Test splits
 rng default
-num_folds = 2;
+num_folds = 10;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
 % main function
