@@ -9,11 +9,41 @@ load(pca_file);
 bosphorus_root = '../../data/Bosphorus/data';
 info_samples = dir([bosphorus_root '/*.hog']);
 samples = {};
+prepare_mode = 1;
 
 rng default
 for i = 1:numel(info_samples)
     samples{end+1} = info_samples(i).name;
 end
+
+if prepare_mode == 1
+    inds = 1:length(samples);
+    [tr_features, tr_labels] = prepare_Bosphorus_data(bosphorus_root, samples, inds);
+    no_train_ne_inds = find(tr_labels ~= 0);
+    tr_features = tr_features(no_train_ne_inds,:);
+    tr_labels = tr_labels(no_train_ne_inds,:);
+    
+    csvwrite('../models/bosphorus_tr_features.dat',tr_features);
+    csvwrite('../models/bosphorus_tr_labels.dat',tr_labels);
+    c = 0.1;
+    opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
+    tr_features = double(sparse(tr_features));
+    tr_labels = double(tr_labels);
+    model = svmtrain(tr_labels, tr_features, opt);
+    save('../models/bosphorus_model.mat','model');
+    
+    tr_features = get_pca(tr_features, PC, means_norm, stds_norm);
+    csvwrite('../models/pca_bosphorus_tr_features.dat',tr_features);
+    csvwrite('../models/pca_bosphorus_tr_labels.dat',tr_labels);
+    
+    c = 0.1;
+    opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
+    tr_features = double(sparse(tr_features));
+    tr_labels = double(tr_labels);
+    model = svmtrain(tr_labels, tr_features, opt);
+    save('../models/pca_bosphorus_model.mat','model');
+end
+
 
 num_folds = 10;
 indices = crossvalind('Kfold',length(samples),num_folds);
