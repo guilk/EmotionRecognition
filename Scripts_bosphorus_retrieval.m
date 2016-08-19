@@ -59,8 +59,8 @@ for PCA_mode = 0
             end
             true_labels = [true_labels; true_label];
             pred_labels = [pred_labels; pred_label];
-            accuracy(i) = acc;  
+            accuracy(i) = acc;
         end
-        save(strcat('./results/',name_dataset,'_result.mat', 'true_labels', 'pred_labels', 'accuracy'));        
+        save(strcat('./results/',name_dataset,'_',num2str(PCA_mode),'_',num2str(featAug_mode),'_result.mat'), 'true_labels', 'pred_labels', 'accuracy');
     end
 end
