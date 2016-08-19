@@ -2,7 +2,7 @@ function [accuracy, true_labels, pred_labels] = linear_video_BU4DFE_classify(tr_
 %LINEAR_VIDEO_BU4DFE_CLASSIFY Summary of this function goes here
 %   Detailed explanation goes here
 
-c = 0.1;
+c = 0.03;
 tr_features = double(sparse(tr_features));
 tr_labels = double(tr_labels);
 opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
