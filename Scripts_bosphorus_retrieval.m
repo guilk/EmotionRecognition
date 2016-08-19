@@ -1,4 +1,4 @@
-% Scripts for ck+ dataset on BU4DFE dataset
+% Scripts for bosphorus dataset on BU4DFE dataset
 clear
 clc
 
@@ -9,6 +9,7 @@ addpath('../models/libsvm/matlab');
 addpath('./utilities');
 addpath('../pca');
 
+name_dataset = 'bosphorus';
 bu4dfe_root = '../data/BU_4DFE/';
 folders = dir(bu4dfe_root);
 folders = folders(3:end);
@@ -27,20 +28,17 @@ rng default
 num_folds = 2;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
-accuracy = zeros(1,num_folds);
-
 % main function
 
-for PCA_mode = 0:1
-    [aug_tr_features, aug_tr_labels, model] = load_pretrained_data('ck', PCA_mode);
-    for featAug_mode = 0:1
+for PCA_mode = 0
+    [aug_tr_features, aug_tr_labels, model] = load_pretrained_data(name_dataset, PCA_mode);
+    for featAug_mode = 0
         
         true_labels = [];
         pred_labels = [];
-        results = {};
-        
+        accuracy = zeros(1,num_folds);
         for i = 1:num_folds
-            fprintf('pca mode: %d, %dth cross validation\n',i);
+            fprintf('pca mode: %d, feature augment mode: %d, %dth cross validation\n',PCA_mode, featAug_mode, i);
             train_inds = inds(indices ~= i);
             test_inds = inds(indices == i);
             if PCA_mode == 0
@@ -59,9 +57,10 @@ for PCA_mode = 0:1
                 [acc, true_label, pred_label] = linear_video_BU4DFE_PCA_classify(tr_features, tr_labels, bu4dfe_root, samples, test_inds, PC, means_norm, stds_norm);
                 
             end
+            true_labels = [true_labels; true_label];
+            pred_labels = [pred_labels; pred_label];
+            accuracy(i) = acc;  
         end
+        save(strcat('./results/',name_dataset,'_result.mat', 'true_labels', 'pred_labels', 'accuracy'));        
     end
 end
-
-
-
