@@ -30,7 +30,7 @@ num_folds = 10;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
 % main function
-
+c = 0.001;
 for PCA_mode = 1
     [aug_tr_features, aug_tr_labels, model] = load_pretrained_data(name_dataset, PCA_mode);
     for featAug_mode = 1
@@ -62,7 +62,7 @@ for PCA_mode = 1
             pred_labels = [pred_labels; pred_label];
             accuracy(i) = acc;  
         end
-        save(strcat('./results/',name_dataset,'_',num2str(PCA_mode),'_',num2str(featAug_mode),'_result.mat'), 'true_labels', 'pred_labels', 'accuracy');        
+        save(strcat('./results/',num2str(c),'_',name_dataset,'_',num2str(PCA_mode),'_',num2str(featAug_mode),'_result.mat'), 'true_labels', 'pred_labels', 'accuracy');        
     end
 end
 
