@@ -33,7 +33,7 @@ inds = 1:length(samples);
 c = 0.001;
 for PCA_mode = 1
     [aug_tr_features, aug_tr_labels, model] = load_pretrained_data(name_dataset, PCA_mode);
-    for featAug_mode = 1
+    for featAug_mode = 0
         
         true_labels = [];
         pred_labels = [];
