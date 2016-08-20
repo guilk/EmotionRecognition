@@ -1,5 +1,5 @@
 function [grid_accuracy, best_setings] = validate_grid_search(ck_root, ck_samples, bu3dfe_root, bu3dfe_samples,...
-    bosphorus_root, bosphorus_samples, c, e, num_folds)
+    bosphorus_root, bosphorus_samples, c, e, num_folds, PC, means_norm, stds_norm)
 
 % use linear svm to find optimal parameters
 % tr_samples: train samples list
@@ -40,6 +40,9 @@ for i = 1:num_folds
     tr_labels = [tr_ck_labels; tr_bu3dfe_labels; tr_bosphorus_labels];
     ts_features = [ts_ck_features; ts_bu3dfe_features; ts_bosphorus_features];
     ts_labels = [ts_ck_labels; ts_bu3dfe_labels; ts_bosphorus_labels];
+    
+    tr_features = get_pca(tr_features, PC, means_norm, stds_norm);
+    ts_features = get_pca(ts_features, PC, means_norm, stds_norm);
     
     tr_features = double(sparse(tr_features));
     tr_labels = double(tr_labels);

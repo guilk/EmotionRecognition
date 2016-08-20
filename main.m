@@ -70,7 +70,7 @@ if prepare_mode == 1
     
     csvwrite('./models/all_tr_features.dat',tr_features);
     csvwrite('./models/all_tr_labels.dat',tr_labels);
-    c = 0.03;
+    c = 0.001;
     opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
     tr_features = double(sparse(tr_features));
     tr_labels = double(tr_labels);
@@ -81,7 +81,7 @@ if prepare_mode == 1
     csvwrite('./models/pca_all_tr_features.dat',tr_features);
     csvwrite('./models/pca_all_tr_labels.dat',tr_labels);
     
-    c = 0.03;
+    c = 0.001;
     opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
     tr_features = double(sparse(tr_features));
     tr_labels = double(tr_labels);
@@ -96,7 +96,7 @@ c = 10.^(-6:0.5:1);
 e = 10.^(-3);
 
 [accuracy,best_settings] = validate_grid_search(ck_root, ck_tr_samples, bu3dfe_root, bu3dfe_tr_samples,...
-    bosphorus_root, bosphorus_tr_samples, c, e, num_folds);
+    bosphorus_root, bosphorus_tr_samples, c, e, num_folds, PC, means_norm, stds_norm);
 
 c = best_settings.c;
 % c = 0.1;
@@ -116,6 +116,9 @@ tr_features = [tr_ck_features;tr_bu3dfe_features;tr_bosphorus_features];
 tr_labels = [tr_ck_labels; tr_bu3dfe_labels; tr_bosphorus_labels];
 ts_features = [ts_ck_features; ts_bu3dfe_features; ts_bosphorus_features];
 ts_labels = [ts_ck_labels; ts_bu3dfe_labels; ts_bosphorus_labels];
+
+tr_features = get_pca(tr_features, PC, means_norm, stds_norm);
+ts_features = get_pca(ts_features, PC, means_norm, stds_norm);
 
 % % Temporary
 % no_train_ne_ind = find(tr_labels ~= 0);
