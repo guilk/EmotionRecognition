@@ -30,10 +30,10 @@ num_folds = 10;
 indices = crossvalind('Kfold', length(samples), num_folds);
 inds = 1:length(samples);
 % main function
-c = 0.001;
-for PCA_mode = 1
+c = 0.031;
+for PCA_mode = 0
     [aug_tr_features, aug_tr_labels, model] = load_pretrained_data(name_dataset, PCA_mode);
-    for featAug_mode = 0
+    for featAug_mode = 0:1
         
         true_labels = [];
         pred_labels = [];

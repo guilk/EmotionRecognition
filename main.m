@@ -70,7 +70,7 @@ if prepare_mode == 1
     
     csvwrite('./models/all_tr_features.dat',tr_features);
     csvwrite('./models/all_tr_labels.dat',tr_labels);
-    c = 0.001;
+    c = 0.031;
     opt = ['-c ' num2str(c) ' -t 0 -b 1 -q'];
     tr_features = double(sparse(tr_features));
     tr_labels = double(tr_labels);
