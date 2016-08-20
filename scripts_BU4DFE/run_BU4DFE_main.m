@@ -2,19 +2,20 @@
 
 clear
 clc
-addpath('./scripts_BU4DFE/');
-addpath('../models/liblinear-2.1/matlab');
-addpath('./plots');
+% addpath('./scripts_BU4DFE/');
+addpath('../../models/libsvm/matlab');
+addpath('../plots');
+addpath('../utilities');
 
-aug_tr_features = csvread('tr_features.dat');
-aug_tr_labels = csvread('tr_labels.dat');
+% aug_tr_features = csvread('tr_features.dat');
+% aug_tr_labels = csvread('tr_labels.dat');
 % aug_ts_features = csvread('ts_features.dat');
 % aug_ts_labels = csvread('ts_labels.dat');
 
-num_samples = 20;
+num_samples = 1;
 ifVideo = 1;
 
-bu4dfe_root = '../data/BU_4DFE/';
+bu4dfe_root = '../../data/BU_4DFE/';
 folders = dir(bu4dfe_root);
 folders = folders(3:end);
 samples={};
@@ -47,8 +48,8 @@ else
         train_inds = inds(indices ~= i);
         test_inds = inds(indices == i);
         [tr_features, tr_labels] = prepare_BU4DFE_training_data(bu4dfe_root, num_samples, samples, train_inds);
-        tr_features = [tr_features; aug_tr_features];
-        tr_labels = [tr_labels; aug_tr_labels];
+%         tr_features = [tr_features; aug_tr_features];
+%         tr_labels = [tr_labels; aug_tr_labels];
         [acc, true_label, pred_label] = linear_video_BU4DFE_classify(tr_features, tr_labels, bu4dfe_root, samples, test_inds);  
         true_labels = [true_labels; true_label];
         pred_labels = [pred_labels; pred_label];
