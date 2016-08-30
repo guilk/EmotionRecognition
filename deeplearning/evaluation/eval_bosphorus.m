@@ -16,7 +16,7 @@ end
 
 num_folds = 10;
 % Better performance without normalization
-normalize = 0;
+normalize = 1;
 rng default
 indices = crossvalind('Kfold', length(samples),num_folds);
 inds = 1:length(samples);
@@ -49,7 +49,7 @@ for i = 1:num_folds
     accuracy(i) = overall_acc(1);
 end
 fprintf('Mean accuracy of %d folds cross validation: %f\n',num_folds, mean(accuracy));
-save('alexnet_result.mat', 'true_labels', 'pred_labels','accuracy');
+save('vggface_result.mat', 'true_labels', 'pred_labels','accuracy');
 end
 
 function [features, labels] = get_features_labels(bosphorus_root, src_samples, inds)
