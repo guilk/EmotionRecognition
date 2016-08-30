@@ -2,8 +2,8 @@ function eval_bosphorus()
 clear
 clc
 
-addpath('../../models/libsvm/matlab');
-addpath('../utilities');
+addpath('../../../models/libsvm/matlab');
+addpath('../../utilities');
 
 feat_root = '/usr0/home/liangkeg/InMind/FG/features/Bosphorus';
 
@@ -24,7 +24,7 @@ for i = 1:num_folds
     fprintf('%dth cross validation\n',i);
     train_inds = inds(indices ~= i);
 %     test_inds = inds(indices == i);
-    get_features_labels(bosphorus_root, samples, train_inds);
+    get_features_labels(feat_root, samples, train_inds);
     
 end
 
