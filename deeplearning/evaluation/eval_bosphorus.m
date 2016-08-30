@@ -15,6 +15,7 @@ for i = 3:numel(subjects)
 end
 
 num_folds = 10;
+normalize = 1;
 rng default
 indices = crossvalind('Kfold', length(samples),num_folds);
 inds = 1:length(samples);
@@ -23,14 +24,26 @@ accuracy = zeros(1,num_folds);
 for i = 1:num_folds
     fprintf('%dth cross validation\n',i);
     train_inds = inds(indices ~= i);
-    %     test_inds = inds(indices == i);
+    test_inds = inds(indices == i);
     [tr_features, tr_labels] = get_features_labels(feat_root, samples, train_inds);
-    size(tr_features)
-    size(tr_labels)
+    [ts_features, ts_labels] = get_features_labels(feat_root, samples, test_inds);
     
+    if(normalize == 1)
+        tr_features = normr(tr_features);
+        ts_features = normr(ts_features);
+    end
     
+    tr_features = double(sparse(tr_features));
+    tr_labels = double(tr_labels);
+    ts_features = double(sparse(ts_features));
+    ts_labels = double(ts_labels);
+    
+    opt = [' -c ' num2str(0.1) ' -t 0 -b 1 -q'];
+    model = svmtrain(tr_labels, tr_features, opt);
+    [~,overall_acc,~] = svmpredict(ts_labels, ts_features, model, '-b 1');
+    accuracy(i) = overall_acc(1);
 end
-
+fprintf('Mean accuracy of %d folds cross validation: %f\n',num_folds, mean(accuracy));
 end
 
 function [features, labels] = get_features_labels(bosphorus_root, src_samples, inds)
