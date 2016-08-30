@@ -23,6 +23,9 @@ for i = 1:numel(folders)
     folder = folders(i).name;
     folder_path = fullfile(dataset_root, folder);
     dst_folder_path = fullfile(dst_root, folder);
+    if ~exists(dst_folder_path,'dir')
+        mkdir(dst_folder_path);
+    end
     images = dir([folder_path '/*.png']);
     im_list = {};
     for j = 1:numel(images)
