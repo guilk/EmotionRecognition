@@ -1,7 +1,7 @@
 function eval_bosphorus()
 
 dataset_root = '/usr0/home/liangkeg/InMind/FG/data_cnn/Bosphorus';
-
+dst_root = '/usr0/home/liangkeg/InMind/FG/features/Bosphorus';
 folders = dir(dataset_root);
 folders = folders(3:end);
 
@@ -13,6 +13,6 @@ for i = 1:numel(folders)
     for j = 1:numel(images)
         im_list{end+1} = fullfile(dataset_root,images(j).name);
     end
-    im_list    
+    extract_features(im_list, dst_root);
 end
 end
