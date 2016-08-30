@@ -1,17 +1,4 @@
-function extract_features(im_list, dst_folder)
-
-disp('Extract CNN features');
-model_root = '/usr0/home/liangkeg/InMind/FG/models/caffe/models/';
-model_def_file = 'bvlc_alexnet/deploy.prototxt';
-model_file = 'bvlc_alexnet/bvlc_alexnet.caffemodel';
-
-def_path = fullfile(model_root,model_def_file);
-model_path = fullfile(model_root, model_file);
-
-net = caffe.Net(def_path, model_path,'test');
-caffe.set_mode_gpu();
-gpu_id = 1;
-caffe.set_device(gpu_id);
+function extract_features(net, im_list, dst_folder)
 
 for im_index = 1:numel(im_list)
     feats = [];
