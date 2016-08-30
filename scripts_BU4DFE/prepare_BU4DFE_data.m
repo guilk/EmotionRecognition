@@ -1,5 +1,6 @@
 function [dst_features, dst_labels] = prepare_BU4DFE_data(feat_path, src_samples, inds)
 num_samples = 1;
+num_samples = num_samples - 1;
 samples = src_samples(inds);
 option = 'hog';
 dst_features = [];

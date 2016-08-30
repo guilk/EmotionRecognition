@@ -1,4 +1,5 @@
 function [C, order] = plot_confusion_matrix(groundtruth, predictions)
+figure;
 src_class = {'Neutral', 'Angry','Disgust','Fear','Happy','Sad','Surprise'};
 [C, order] = confusionmat(groundtruth, predictions);
 tick_label = src_class(order+1);
