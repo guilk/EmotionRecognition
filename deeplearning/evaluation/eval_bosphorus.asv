@@ -27,12 +27,23 @@ for i = 1:num_folds
     test_inds = inds(indices == i);
     [tr_features, tr_labels] = get_features_labels(feat_root, samples, train_inds);
     [ts_features, ts_labels] = get_features_labels(feat_root, samples, test_inds);
-
+    
     if(normalize == 1)
-       tr_features = normr 
+        tr_features = normr(tr_features);
+        ts_features = normr(ts_features);
     end
+    
+    tr_features = sparse(double(sparse(tr_features));
+    tr_labels = double(tr_labels);
+    ts_features = double(sparse(ts_features));
+    ts_labels = double(ts_labels);
+    
+    opt = [' -c ' num2str(0.1) ' -t 0 -b 1 -q'];
+    model = svmtrain(tr_labels, tr_features, opt);
+    [~,overall_acc,~] = svmpredict(ts_labels, ts_features, model, '-b 1');
+    accuracy(i) = overall_acc(1);
 end
-
+fprintf('Mean accuracy of %d folds cross validation: %f\n',num_folds, mean(accuracy));
 end
 
 function [features, labels] = get_features_labels(bosphorus_root, src_samples, inds)

@@ -33,9 +33,9 @@ for i = 1:num_folds
         ts_features = normr(ts_features);
     end
     
-    tr_features = double(sparse(tr_features));
+    tr_features = sparse(double(tr_features));
     tr_labels = double(tr_labels);
-    ts_features = double(sparse(ts_features));
+    ts_features = sparse(double(ts_features));
     ts_labels = double(ts_labels);
     
     opt = [' -c ' num2str(0.1) ' -t 0 -b 1 -q'];
