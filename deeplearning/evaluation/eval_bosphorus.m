@@ -22,12 +22,13 @@ folders = folders(3:end);
 for i = 1:numel(folders)
     folder = folders(i).name;
     folder_path = fullfile(dataset_root, folder);
+    dst_folder_path = fullfile(dst_root, folder);
     images = dir([folder_path '/*.png']);
     im_list = {};
     for j = 1:numel(images)
         im_list{end+1} = fullfile(folder_path,images(j).name);
     end
-    extract_features(net, im_list, dst_root);
+    extract_features(net, im_list, dst_folder_path);
 end
 
 caffe.reset_all();
