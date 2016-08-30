@@ -45,7 +45,7 @@ for i = 1:numel(samples)
     for j = 1:numel(images)
         splits = strsplit(images(j).name,'_');
         if strcmp(splits{2},'E') || strcmp(splits{2},'N')
-            switch splits(3)
+            switch splits{3}
                 case 'N'
                     labels = [labels;0];
                 case 'ANGER'
