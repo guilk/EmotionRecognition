@@ -15,7 +15,8 @@ for i = 3:numel(subjects)
 end
 
 num_folds = 10;
-normalize = 1;
+% Better performance without normalization
+normalize = 0;
 rng default
 indices = crossvalind('Kfold', length(samples),num_folds);
 inds = 1:length(samples);
