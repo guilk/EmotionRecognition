@@ -47,9 +47,9 @@ for i = 1:numel(samples)
         if strcmp(splits{2},'E') || strcmp(splits{2},'N')
             switch splits{3}
                 case 'N'
-                    labels = [labels;0];
+                    labels = [labels; 0];
                 case 'ANGER'
-                    labels = [labels;1];
+                    labels = [labels; 1];
                 case 'DISGUST'
                     labels = [labels; 2];
                 case 'FEAR'
@@ -61,10 +61,11 @@ for i = 1:numel(samples)
                 case 'SURPRISE'
                     labels = [labels; 6];
             end
+            load(fullfile(bosphorus_root, samples{i}, images(j).name));
+            img_feature = mean(feats.fc7, 2);
+            features = [features; img_feature'];
         end
-        load(fullfile(bosphorus_root, samples{i}, images(j).name));
-        img_feature = mean(feats.fc7, 2);
-        features = [features; img_feature'];
+        
     end
 end
 end
