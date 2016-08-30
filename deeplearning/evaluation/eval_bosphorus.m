@@ -40,7 +40,7 @@ for i = 1:numel(samples)
     images = images(3:end);
     
     for j = 1:numel(images)
-       splits = strsplit(images{j}.name,'_');
+       splits = strsplit(images(j).name,'_');
        if strcmp(splits{2},'E') || strcmp(splits{2},'N')
            images{j}.name
        end
