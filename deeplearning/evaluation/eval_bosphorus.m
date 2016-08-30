@@ -29,4 +29,6 @@ for i = 1:numel(folders)
     end
     extract_features(net, im_list, dst_root);
 end
+
+caffe.reset_all();
 end
