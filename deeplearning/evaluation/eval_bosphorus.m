@@ -11,7 +11,7 @@ for i = 1:numel(folders)
     images = dir([folder_path '/*.png']);
     im_list = {};
     for j = 1:numel(images)
-        im_list{end+1} = fullfile(dataset_root,images(j).name);
+        im_list{end+1} = fullfile(folder_path,images(j).name);
     end
     extract_features(im_list, dst_root);
 end
