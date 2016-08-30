@@ -24,7 +24,7 @@ for im_index = 1:numel(im_list)
     fpath = fullfile(dst_folder, [fname,'.mat']);
     save(fpath,'feats');
 end
-caffe.reset();
+caffe.reset_all();
 end
 
 function crops_data = prepare_image(im)
