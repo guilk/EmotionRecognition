@@ -62,7 +62,7 @@ for i = 1:numel(samples)
                     labels = [labels; 6];
             end
         end
-        load(fullfile(bosphorus_root, samples{i}, images{j}));
+        load(fullfile(bosphorus_root, samples{i}, images(j).name));
         img_feature = mean(feats.fc7, 2);
         features = [features; img_feature'];
     end
