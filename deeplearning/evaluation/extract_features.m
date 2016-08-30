@@ -20,7 +20,7 @@ for im_index = 1:numel(im_list)
     scores = net.forward(input_data);
     feats.fc7 = net.blobs('fc7').get_data();
     
-    [~,fname] = fileparts(im_list{im_index}.name);
+    [~,fname] = fileparts(im_list{im_index});
     fpath = fullfile(dst_folder, [fname,'.mat']);
     save(fpath,'feats');
 end
