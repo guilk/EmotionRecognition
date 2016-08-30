@@ -23,8 +23,11 @@ accuracy = zeros(1,num_folds);
 for i = 1:num_folds
     fprintf('%dth cross validation\n',i);
     train_inds = inds(indices ~= i);
-%     test_inds = inds(indices == i);
-    get_features_labels(feat_root, samples, train_inds);
+    %     test_inds = inds(indices == i);
+    [tr_features, tr_labels] = get_features_labels(feat_root, samples, train_inds);
+    size(tr_features)
+    size(tr_labels)
+    
     
 end
 
@@ -40,11 +43,28 @@ for i = 1:numel(samples)
     images = images(3:end);
     
     for j = 1:numel(images)
-       splits = strsplit(images(j).name,'_');
-       if strcmp(splits{2},'E') || strcmp(splits{2},'N')
-           images(j).name
-       end
+        splits = strsplit(images(j).name,'_');
+        if strcmp(splits{2},'E') || strcmp(splits{2},'N')
+            switch splits(3)
+                case 'N'
+                    labels = [labels;0];
+                case 'ANGER'
+                    labels = [labels;1];
+                case 'DISGUST'
+                    labels = [labels; 2];
+                case 'FEAR'
+                    labels = [labels; 3];
+                case 'HAPPY'
+                    labels = [labels; 4];
+                case 'SADNESS'
+                    labels = [labels;5];
+                case 'SURPRISE'
+                    labels = [labels; 6];
+            end
+        end
+        load(fullfile(bosphorus_root, samples{i}, images{j}));
+        img_feature = mean(feats.fc7, 2);
+        features = [features; img_feature'];
     end
 end
-
 end
