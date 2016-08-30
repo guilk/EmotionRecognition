@@ -2,6 +2,7 @@ function extract_features(net, im_list, dst_folder)
 
 for im_index = 1:numel(im_list)
     feats = [];
+    disp(im_list{im_index});
     I = imread(im_list{im_index});
     input_data = {prepare_image(I)};
     scores = net.forward(input_data);
