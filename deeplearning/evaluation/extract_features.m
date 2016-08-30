@@ -31,7 +31,7 @@ function crops_data = prepare_image(im)
 % ------------------------------------------------------------------------
 % caffe/matlab/+caffe/imagenet/ilsvrc_2012_mean.mat contains mean_data that
 % is already in W x H x C with BGR channels
-d = load('../+caffe/imagenet/ilsvrc_2012_mean.mat');
+d = load('/usr0/home/liangkeg/InMind/FG/models/caffe/matlab/+caffe/imagenet/ilsvrc_2012_mean.mat');
 mean_data = d.mean_data;
 IMAGE_DIM = 256;
 CROPPED_DIM = 227;
