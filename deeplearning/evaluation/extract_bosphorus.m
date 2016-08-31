@@ -8,8 +8,8 @@ model_root = '/usr0/home/liangkeg/InMind/FG/models/caffe/models/';
 % model_def_file = 'vgg_face_caffe/VGG_FACE_deploy.prototxt';
 % model_file = 'vgg_face_caffe/VGG_FACE.caffemodel';
 
-model_def_file = 'vgg/VGG_ILSVRC_16_layers.caffemodel';
-model_file = 'vgg/VGG_ILSVRC_16_layers_deploy.prototxt';
+model_def_file = 'vgg/VGG_ILSVRC_16_layers_deploy.prototxt';
+model_file = 'vgg/VGG_ILSVRC_16_layers.caffemodel';
 
 def_path = fullfile(model_root,model_def_file);
 model_path = fullfile(model_root, model_file);
