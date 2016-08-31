@@ -22,6 +22,8 @@ indices = crossvalind('Kfold', length(samples),num_folds);
 inds = 1:length(samples);
 accuracy = zeros(1,num_folds);
 
+true_labels = [];
+pred_labels = [];
 for i = 1:num_folds
     fprintf('%dth cross validation\n',i);
     train_inds = inds(indices ~= i);
@@ -41,10 +43,13 @@ for i = 1:num_folds
     
     opt = [' -c ' num2str(0.1) ' -t 0 -b 1 -q'];
     model = svmtrain(tr_labels, tr_features, opt);
-    [~,overall_acc,~] = svmpredict(ts_labels, ts_features, model, '-b 1');
+    [pred_label,overall_acc,~] = svmpredict(ts_labels, ts_features, model, '-b 1');
+    true_labels = [true_labels; ts_labels];
+    pred_labels = [pred_labels; pred_label];
     accuracy(i) = overall_acc(1);
 end
 fprintf('Mean accuracy of %d folds cross validation: %f\n',num_folds, mean(accuracy));
+save('alexnet_result.mat', 'true_labels', 'pred_labels','accuracy');
 end
 
 function [features, labels] = get_features_labels(bosphorus_root, src_samples, inds)
