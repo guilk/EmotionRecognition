@@ -2,8 +2,11 @@ function extract_bosphorus()
 
 disp('Extract CNN features');
 model_root = '/usr0/home/liangkeg/InMind/FG/models/caffe/models/';
-model_def_file = 'bvlc_alexnet/deploy.prototxt';
-model_file = 'bvlc_alexnet/bvlc_alexnet.caffemodel';
+% model_def_file = 'bvlc_alexnet/deploy.prototxt';
+% model_file = 'bvlc_alexnet/bvlc_alexnet.caffemodel';
+
+model_def_file = 'vgg_face_caffe/VGG_FACE_deploy.prototxt';
+model_file = 'vgg_face_caffe/VGG_FACE.caffemodel';
 
 def_path = fullfile(model_root,model_def_file);
 model_path = fullfile(model_root, model_file);
@@ -31,7 +34,7 @@ for i = 1:numel(folders)
     for j = 1:numel(images)
         im_list{end+1} = fullfile(folder_path,images(j).name);
     end
-    extract_features(net, im_list, dst_folder_path);
+    extract_features_vgg_face(net, im_list, dst_folder_path);
 end
 
 caffe.reset_all();

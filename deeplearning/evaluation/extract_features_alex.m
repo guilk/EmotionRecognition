@@ -1,4 +1,4 @@
-function extract_features(net, im_list, dst_folder)
+function extract_features_alex(net, im_list, dst_folder)
 
 for im_index = 1:numel(im_list)
     feats = [];
