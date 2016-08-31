@@ -16,7 +16,7 @@ end
 
 num_folds = 10;
 % Better performance without normalization
-normalize = 1;
+normalize = 0;
 rng default
 indices = crossvalind('Kfold', length(samples),num_folds);
 inds = 1:length(samples);
